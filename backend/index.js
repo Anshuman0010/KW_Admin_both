@@ -15,6 +15,7 @@ const Alumni = require('./models/Alumni');
 const resourceRoutes = require('./routes/resources');
 const app = express();
 
+
 // Enable CORS for your frontend domain
 app.use(cors({
   origin: '*',
