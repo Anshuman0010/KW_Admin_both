@@ -182,6 +182,8 @@ const AdminDashboard = () => {
   
 
   const handleUpload = async () => {
+    console.log(import.meta.env.VITE_API_BASE_URL);
+
     if (!selectedFile || !selectedBranch || !selectedSemester || !selectedCategory) {
       console.error("Missing required fields!");
       return;
