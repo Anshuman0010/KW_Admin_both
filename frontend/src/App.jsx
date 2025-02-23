@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import { useState, useEffect } from 'react';
 import AdminLogin from './pages/AdminLogin';
 import AdminSignup from './pages/AdminSignup';
 import AdminDashboard from './pages/AdminDashboard';
@@ -27,6 +28,12 @@ const ProtectedRoute = ({ children }) => (
 );
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem('adminToken'));
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
@@ -49,10 +56,9 @@ function App() {
           {/* Redirect root to dashboard if logged in, otherwise to login */}
           <Route 
             path="/admin" 
-            element={
-              localStorage.getItem('adminToken') ? 
-                <Navigate to="/admin/dashboard" replace /> : 
-                <Navigate to="/admin/login" replace />
+            element={isAuthenticated ? 
+              <Navigate to="/admin/dashboard" replace /> : 
+              <Navigate to="/admin/login" replace />
             } 
           />
 
@@ -65,3 +71,4 @@ function App() {
 }
 
 export default App;
+
